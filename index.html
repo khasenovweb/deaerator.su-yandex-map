@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <div id="map"></div>
+
+    <script>
+        var markers = [
+            {
+                object: "13-й квартал",
+                city: "Озеры",
+                year: "1986",
+                performance: "290",
+                work_mode: "Вакуумный",
+                coordinates: [54.854092, 38.559833],
+            },
+            {
+                object: "ТЭЦ ИРУ",
+                city: "Таллин",
+                year: "1987",
+                performance: "100",
+                work_mode: "Атмосферный",
+                coordinates: [59.437425, 24.745137],
+            },
+            {
+                object: "ТЭЦ-5",
+                city: "Новосибирск",
+                year: "1987",
+                performance: "1200",
+                work_mode: "Атмосферный",
+                coordinates: [55.008068, 83.058907],
+            },
+            {
+                year: "1988",
+                performance: "150",
+                work_mode: "Вакуумный",
+                city: "Коломна",
+                object: "Колычево",
+                coordinates: [55.062385, 38.740810]
+            },
+            {
+                year: "1988",
+                performance: "250",
+                work_mode: "Атмосферный",
+                city: "Мончегорск",
+                object: "Кольская ГМК",
+                coordinates: [67.924585, 32.844093]
+            },
+            {
+                year: "1989",
+                performance: "",
+                work_mode: "Вакуумный",
+                city: "Коломна",
+                object: "Огородная, 86",
+                coordinates: [55.082011, 38.760016]
+            },
+            {
+                year: "1989",
+                performance: "50",
+                work_mode: "Вакуумный",
+                city: "Кимры",
+                object: "",
+                coordinates: [56.872659, 37.358274]
+            },
+            {
+                year: "1989",
+                performance: "50",
+                work_mode: "Атмосферный",
+                city: "Таллин",
+                object: "BLRT Masinaehitus",
+                coordinates: [59.464517, 24.657308]
+            },
+            {
+                year: "1989",
+                performance: "50",
+                work_mode: "Вакуумный",
+                city: "Коломна",
+                object: "Пионерская ул., д. 31",
+                coordinates: [55.091634, 38.756716]
+            },
+            {
+                year: "1989",
+                performance: "320",
+                work_mode: "Вакуумный",
+                city: "Кашира",
+                object: "Каширская ГРЭС",
+                coordinates: [54.855921, 38.252910]
+            },
+            {
+                year: "1991",
+                performance: "1600",
+                work_mode: "Атмосферный",
+                city: "Ангарск",
+                object: "ТЭЦ-9",
+                coordinates: [52.529512, 103.934513]
+            },
+            {
+                year: "1991",
+                performance: "500",
+                work_mode: "Вакуумный",
+                city: "Ангарск",
+                object: "ТЭЦ-9",
+                coordinates: [52.529512, 103.934513]
+            },
+            {
+                year: "1993",
+                performance: "200",
+                work_mode: "Атмосферный",
+                city: "Заполярный",
+                object: "комбинат Печенга Никель",
+                coordinates: [69.405720, 30.801845]
+            },
+            {
+                year: "1993",
+                performance: "50",
+                work_mode: "Вакуумный",
+                city: "Фрязино",
+                object: "",
+                coordinates: [55.943447, 38.054792]
+            },
+            {
+                year: "2004",
+                performance: "20",
+                work_mode: "Вакуумный",
+                city: "Павловский Посад",
+                object: "",
+                coordinates: [55.771231, 38.658457]
+            },
+            {
+                year: "2005",
+                performance: "300",
+                work_mode: "Вакуумный",
+                city: "Йошкар-Ола",
+                object: "ТЭЦ-1",
+                coordinates: [56.632209, 47.874868]
+            },
+            {
+                year: "2006",
+                performance: "450",
+                work_mode: "Вакуумный",
+                city: "Тула",
+                object: "Заречный",
+                coordinates: [54.242888, 37.598447]
+            },
+            {
+                year: "2006",
+                performance: "20",
+                work_mode: "Вакуумный",
+                city: "Москва",
+                object: "мкр. 1 мая",
+                coordinates: [55.803966, 37.841514]
+            },
+            {
+                year: "2006",
+                performance: "30",
+                work_mode: "Атмосферный",
+                city: "Владивосток",
+                object: "Фанзавод",
+                coordinates: [43.238725, 132.014974]
+            },
+            {
+                year: "2007",
+                performance: "20",
+                work_mode: "Атмосферный",
+                city: "Большой камень",
+                object: "завод \"\"Звезда\"\"",
+                coordinates: [43.121251, 132.344588]
+            },
+            {
+                year: "2007",
+                performance: "6",
+                work_mode: "Атмосферный",
+                city: "Уссурийск",
+                object: "Уссурийские мельницы",
+                coordinates: [43.787381, 131.926345]
+            },
+            {
+                year: "2008",
+                performance: "40",
+                work_mode: "Вакуумный",
+                city: "Мытищи",
+                object: "Олимпийский проспект, 40",
+                coordinates: [55.927579, 37.754753]
+            },
+            {
+                year: "2008",
+                performance: "25",
+                work_mode: "Вакуумный",
+                city: "Мытищи",
+                object: "Крестьянская, 20",
+                coordinates: [55.892282, 37.720159]
+            },
+            {
+                year: "2008",
+                performance: "20",
+                work_mode: "Вакуумный",
+                city: "Балашиха",
+                object: "мкр. 15",
+                coordinates: [55.824263, 37.932695]
+            },
+            {
+                year: "2008",
+                performance: "25",
+                work_mode: "Вакуумный",
+                city: "Лобня",
+                object: "мкр. Катюшки",
+                coordinates: [56.004159, 37.454454]
+            },
+            //{
+                //year: "2008",
+                //performance: "15",
+                //work_mode: "Вакуумный",
+                //city: "п. Пограничник",
+                //object: "п. Пограничник",
+                //coordinates: []
+            //},
+            {
+                year: "2009",
+                performance: "32",
+                work_mode: "Вакуумный",
+                city: "Москва",
+                object: "ВВЦ",
+                coordinates: [55.830519, 37.640144]
+            },
+            {
+                year: "2009",
+                performance: "250",
+                work_mode: "Вакуумный",
+                city: "Кокшетау",
+                object: "ГПК РК2",
+                coordinates: [53.301668, 69.419920]
+            },
+            {
+                year: "2010",
+                performance: "60",
+                work_mode: "Вакуумный",
+                city: "Ангарск",
+                object: "д/о Звёздный",
+                coordinates: [52.441341, 103.741584]
+            },
+            //{
+                //year: "2010",
+                //performance: "6",
+                //work_mode: "Атмосферный",
+                //city: "Владивосток",
+                //object: "",
+                //coordinates: []
+            //},
+            {
+                year: "2010",
+                performance: "80",
+                work_mode: "Вакуумный",
+                city: "Щелково",
+                object: "",
+                coordinates: [55.917563, 37.975733]
+            },
+            {
+                year: "2011",
+                performance: "12",
+                work_mode: "Атмосферный",
+                city: "Рязань",
+                object: "завод \"\"Стройкерамика\"\"",
+                coordinates: [54.615059, 39.664560]
+            },
+            {
+                year: "2012",
+                performance: "28",
+                work_mode: "Атмосферный",
+                city: "Красногорск",
+                object: "пос. Отрадное",
+                coordinates: [55.870424, 37.312523]
+            },
+            {
+                year: "2012",
+                performance: "250",
+                work_mode: "Вакуумный",
+                city: "Балашиха",
+                object: "30 мкр.",
+                coordinates: [55.827803, 37.943760]
+            },
+            {
+                year: "2013",
+                performance: "30",
+                work_mode: "Вакуумный",
+                city: "Красноармейск",
+                object: "проспект Испытателей, 10",
+                coordinates: [56.123097, 38.144077]
+            },
+            {
+                year: "2013",
+                performance: "32",
+                work_mode: "Вакуумный",
+                city: "Щелково",
+                object: "Фабричная, 1",
+                coordinates: [55.913739, 38.016418]
+            },
+            {
+                year: "2014",
+                performance: "50",
+                work_mode: "Вакуумный",
+                city: "Белореченск",
+                object: "Еврохим БМУ",
+                coordinates: [44.754441, 39.764943]
+            },
+            {
+                year: "2015",
+                performance: "35",
+                work_mode: "Атмосферный",
+                city: "Владивосток",
+                object: "Приморский топливный терминал",
+                coordinates: [43.115542, 131.885494]
+            },
+            {
+                year: "2015",
+                performance: "50",
+                work_mode: "Вакуумный",
+                city: "Москва",
+                object: "Центральная клиническая больница",
+                coordinates: [55.750592, 37.398898]
+            },
+            {
+                year: "2016",
+                performance: "200",
+                work_mode: "Вакуумный",
+                city: "Егорьевск",
+                object: "Коммунльная, 3",
+                coordinates: [55.368426, 39.069811]
+            },
+            {
+                year: "2016",
+                performance: "10",
+                work_mode: "Вакуумный",
+                city: "Нижний Новгород",
+                object: "ул. Июльских дней",
+                coordinates: [56.306711, 43.947662]
+            },
+            {
+                year: "2016",
+                performance: "250",
+                work_mode: "Вакуумный",
+                city: "Протвино",
+                object: "ПРОТЭП",
+                coordinates: [54.877635, 37.206962]
+            },
+            {
+                year: "2017",
+                performance: "10",
+                work_mode: "Вакуумный",
+                city: "Москва",
+                object: "пос. Развилка",
+                coordinates: [55.591121, 37.752957]
+            },
+            {
+                year: "2017",
+                performance: "30",
+                work_mode: "Вакуумный",
+                city: "Москва",
+                object: "пос. Середнево",
+                coordinates: [55.564195, 37.288142]
+            },
+            {
+                year: "2017",
+                performance: "100",
+                work_mode: "Вакуумный",
+                city: "Уфа",
+                object: "Менделеева, 134",
+                coordinates: [54.714104, 56.006109]
+            },
+            {
+                year: "2017",
+                performance: "100",
+                work_mode: "Вакуумный",
+                city: "Уфа",
+                object: "Центральная, 80",
+                coordinates: [54.686058, 55.809388]
+            },
+            {
+                year: "2018",
+                performance: "60",
+                work_mode: "Атмосферный",
+                city: "Владивосток",
+                object: "Приморнефтепродукт",
+                coordinates: [43.119673, 131.889354]
+            },
+            {
+                year: "2018",
+                performance: "15",
+                work_mode: "Вакуумный",
+                city: "Москва",
+                object: "мкр. Десеновское",
+                coordinates: [55.507855, 37.342195]
+            },
+            {
+                year: "2018",
+                performance: "30",
+                work_mode: "Вакуумный",
+                city: "Москва",
+                object: "мкр. Боброво",
+                coordinates: [55.527322, 37.627019]
+            },
+            {
+                year: "2019",
+                performance: "8",
+                work_mode: "Атмосферный",
+                city: "Синявино",
+                object: "Пос. Синявино, птицефабрика",
+                coordinates: [59.883489, 31.089616]
+            },
+            {
+                year: "2019",
+                performance: "10",
+                work_mode: "Вакуумный",
+                city: "Нижний Новгород",
+                object: "ул. Коперника",
+                coordinates: [56.346171, 43.840943]
+            },
+            {
+                year: "2020",
+                performance: "1600",
+                work_mode: "Вакуумный",
+                city: "Норильск",
+                object: "ТЭЦ-2",
+                coordinates: [69.516752, 88.349191]
+            },
+            {
+                year: "2020",
+                performance: "50",
+                work_mode: "Атмосферный",
+                city: "Обнинск",
+                object: "",
+                coordinates: [55.109413, 36.628859]
+            },
+            {
+                year: "2021",
+                performance: "1600",
+                work_mode: "Вакуумный",
+                city: "Омск",
+                object: "ТЭЦ-3",
+                coordinates: [55.064876, 73.257446]
+            },
+            {
+                year: "2020",
+                performance: "8",
+                work_mode: "Атмосферный",
+                city: "Чапаевск",
+                object: "",
+                coordinates: [52.976385, 49.716705]
+            },
+            {
+                year: "2021",
+                performance: "1600",
+                work_mode: "Вакуумный",
+                city: "Астрахань",
+                object: "ТЭЦ Лукойл",
+                coordinates: [46.329787, 48.085212]
+            },
+            {
+                year: "2021",
+                performance: "10",
+                work_mode: "Вакуумный",
+                city: "Нижний Новгород ",
+                object: "ул. Гагарина, 25",
+                coordinates: [56.294965, 43.981013]
+            },
+            {
+                year: "2021",
+                performance: "40",
+                work_mode: "Атмосферный",
+                city: "Люберцы",
+                object: "1-й Панковский пр. ",
+                coordinates: [55.661410, 37.921986]
+            },
+            {
+                year: "2022",
+                performance: "100",
+                work_mode: "Вакуумный",
+                city: "Уфа",
+                object: "Бакунина, 4",
+                coordinates: [54.723392, 55.923584]
+            },
+            {
+                year: "2021",
+                performance: "60",
+                work_mode: "Атмосферный",
+                city: "Люберцы",
+                object: "Космонавтов ул.",
+                coordinates: [55.659322, 37.908438]
+            },
+            {
+                year: "2022",
+                performance: "20",
+                work_mode: "Вакуумный",
+                city: "Воронеж",
+                object: "г. Воронеж, Теплосеть",
+                coordinates: [51.696443, 39.187141]
+            },
+            {
+                year: "2022",
+                performance: "50",
+                work_mode: "Вакуумный",
+                city: "Королёв",
+                object: "Пионерская ул., д. 51А",
+                coordinates: [55.914443, 37.828739]
+            },
+            {
+                year: "2022",
+                performance: "90",
+                work_mode: "Вакуумный",
+                city: "Сафоново",
+                object: "Советская, 78",
+                coordinates: [55.121501, 33.230636]
+            },
+            {
+                year: "2022",
+                performance: "25",
+                work_mode: "Атмосферный",
+                city: "Люберцы",
+                object: "поселок МЭЗ, ул. Поселковая, д. 7ъ",
+                coordinates: [55.629342, 38.004252]
+            },
+            {
+                year: "2022",
+                performance: "200",
+                work_mode: "Вакуумный",
+                city: "Ноябрьск",
+                object: "котельная",
+                coordinates: [63.192629, 75.425056]
+            },
+            {
+                year: "2022",
+                performance: "200",
+                work_mode: "Вакуумный",
+                city: "Димитровград",
+                object: "котельная",
+                coordinates: [54.205269, 49.588960]
+            },
+            {
+                year: "2023",
+                performance: "27",
+                work_mode: "Атмосферный",
+                city: "Кировград",
+                object: "котельная",
+                coordinates: [57.431926, 60.056527]
+            },
+            {
+                year: "2023",
+                performance: "400",
+                work_mode: "Вакуумный",
+                city: "Иваново",
+                object: "ТЭЦ-2",
+                coordinates: [56.954566, 41.103853]
+            },
+            {
+                year: "2023",
+                performance: "100",
+                work_mode: "Атмосферный",
+                city: "Сафоново",
+                object: "котельная",
+                coordinates: [55.120799, 33.232105]
+            },
+            {
+                year: "2023",
+                performance: "30",
+                work_mode: "Вакуумный",
+                city: "Мариуполь",
+                object: "котельная",
+                coordinates: [47.160267, 37.587443]
+            },
+            {
+                year: "2023",
+                performance: "100",
+                work_mode: "Вакуумный",
+                city: "Воронеж",
+                object: "г. Воронеж, Теплосеть",
+                coordinates: [51.687751, 39.271029]
+            }
+        ]
+    </script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=7f7f22da-7c0d-4ad2-b805-81720021b7c1" type="text/javascript"></script>
+    <script type="text/javascript">
+        ymaps.ready(init);
+        var myMapAll;
+
+        function init() {
+            myMapAll = new ymaps.Map("map", {
+                center: [55.411595, 61.217954],
+                zoom: 3,
+                controls: [],
+                clusterize: true,
+            }, {
+                //maxZoom: 15
+            }),
+
+            clusterer = new ymaps.Clusterer({
+                preset: 'islands#invertedBlueClusterIcons',
+                groupByCoordinates: false,
+                clusterDisableClickZoom: false,
+                clusterHideIconOnBalloonOpen: false,
+                geoObjectHideIconOnBalloonOpen: false
+            }),
+
+            clusterer.options.set({
+                gridSize: 80,
+                clusterDisableClickZoom: false
+            });
+
+            markers.forEach(function(el, i){
+                console.log(el);
+                var myPlacemark = new ymaps.Placemark(el.coordinates, {
+                    balloonContentHeader: el.object,
+                    balloonContentBody: 
+                    'Город: <strong>'+el.city+'</strong> <br>'+
+                    'Год поставки: <strong>'+el.year+'</strong> <br>'+
+                    'Произ-ть, т/ч: <strong>'+el.performance+'</strong> <br>'+
+                    'Режим работы: <strong>'+el.work_mode+'</strong> <br>',
+                    balloonContentFooter: "",
+                    hintContent: "",
+                    clusterCaption: el.object,
+                    iconCaption: el.object
+                }, 
+                {
+                    preset: 'islands#blueIconWithCaption'
+                }
+                );
+                clusterer.add(myPlacemark)
+            });
+
+            myMapAll.geoObjects.add(clusterer);
+
+            //myMapAll.setBounds(myMapAll.geoObjects.getBounds());
+            myMapAll.setBounds(clusterer.getBounds(), {
+                checkZoomRange: true,
+                zoomMargin:17
+            });
+            myMapAll.controls.add('zoomControl');
+            console.log(clusterer.getBounds());
+        }
+
+    </script>
+
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+    
+</body>
+</html>
